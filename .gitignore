@@ -1,3 +1,12 @@
+**.config.dart
+**.g.dart
+**.freezed.dart
+**.gr.dart
+**/export.dart
+supabase/
+.env
+.vscode
+
 # Miscellaneous
 *.class
 *.log
