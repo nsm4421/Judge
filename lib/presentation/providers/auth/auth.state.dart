@@ -1,16 +1,10 @@
 part of 'auth.bloc.dart';
 
 @CopyWith(copyWithNull: true)
-class AuthenticationState {
-  final Status status;
-  final String message;
+class AuthenticationState extends AbsBlocState {
   final AppUser? user;
 
-  AuthenticationState({
-    this.status = Status.initial,
-    this.message = '',
-    this.user,
-  });
+  AuthenticationState({super.status, super.message, this.user});
 
   bool get isAuth => user != null;
 }
