@@ -9,8 +9,13 @@ part 'sign_up_request.model.g.dart';
 class SignUpRequest with _$SignUpRequest {
   final String email;
   final String password;
+  final String username;
 
-  SignUpRequest({required this.email, required this.password});
+  SignUpRequest({
+    required this.email,
+    required this.password,
+    required this.username,
+  });
 
   Map<String, Object?> toJson() => _$SignUpRequestToJson(this);
 

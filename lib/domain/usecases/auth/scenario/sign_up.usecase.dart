@@ -8,9 +8,15 @@ import 'package:judge/shared/export.dart';
 class SignUpContext {
   final String email;
   final String password;
+  final String username;
   AppUser? user;
 
-  SignUpContext({required this.email, required this.password, this.user});
+  SignUpContext({
+    required this.email,
+    required this.password,
+    required this.username,
+    this.user,
+  });
 }
 
 class SignUpUseCase {
@@ -21,14 +27,19 @@ class SignUpUseCase {
   Future<Either<AbsError, AppUser?>> call({
     required String email,
     required String password,
+    required String username,
   }) async {
-    final ctx = SignUpContext(email: email, password: password);
+    final ctx = SignUpContext(
+      email: email,
+      password: password,
+      username: username,
+    );
     final tasks = ListQueue<Future<Either<AbsError, void>> Function()>();
     tasks.addAll([
       () async {
         final emailReg = RegExp(r'^[^@]+@[^@]+\.[^@]+');
         return !emailReg.hasMatch(ctx.email)
-            ? Left(ValidationError('올바른 이메일 형식을 입력해주세요'))
+            ? Left(ValidationError('올바른 이메일 형식을 입력해주세요|$email'))
             : Right(null);
       },
       () async {
@@ -37,7 +48,12 @@ class SignUpUseCase {
             : Right(null);
       },
       () async {
-        final res = await _repository.signIn(email: email, password: password);
+        return ctx.username.length < 2
+            ? Left(ValidationError('유저명은 최소 2자 이상이어야 합니다|$username'))
+            : Right(null);
+      },
+      () async {
+        final res = await _repository.signUp(email: email, password: password, username:username);
         if (res.isRight) {
           ctx.user = res.right;
         }

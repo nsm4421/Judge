@@ -30,11 +30,16 @@ class SignUpCubit extends Cubit<SignUpState> with SingletonLoggerMixIn {
     );
   }
 
-  Future<void> updateData({String? email, String? password}) async {
+  Future<void> updateData({
+    String? email,
+    String? password,
+    String? username,
+  }) async {
     emit(
       state.copyWith(
         email: email ?? state.email,
         password: password ?? state.password,
+        username: username ?? state.username,
       ),
     );
   }
@@ -50,7 +55,11 @@ class SignUpCubit extends Cubit<SignUpState> with SingletonLoggerMixIn {
     try {
       updateStatus(status: Status.loading, message: 'unexpected error');
       await _useCase
-          .signUp(email: state.email, password: state.password)
+          .signUp(
+            email: state.email,
+            password: state.password,
+            username: state.username,
+          )
           .then(
             (res) => res.fold(
               (l) {

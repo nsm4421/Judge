@@ -1,10 +1,7 @@
 class AppAuthUser {
   final String id;
   final String email;
+  final String username;
 
-  AppAuthUser({required this.id, required this.email});
-
-  factory AppAuthUser.from(Map<String, dynamic> json) {
-    return AppAuthUser(id: json['id'], email: json['email']);
-  }
+  AppAuthUser({required this.id, required this.email, required this.username});
 }

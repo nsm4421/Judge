@@ -8,10 +8,11 @@ class AppUser {
   @CopyWithField(immutable: true)
   final String id;
   final String email;
+  final String username;
 
-  AppUser({required this.id, required this.email});
+  AppUser({required this.id, required this.email, required this.username});
 
   factory AppUser.from(AppAuthUser model) {
-    return AppUser(id: model.id, email: model.email);
+    return AppUser(id: model.id, email: model.email, username: model.username);
   }
 }

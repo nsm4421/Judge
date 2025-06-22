@@ -1,6 +1,8 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:judge/presentation/providers/export.dart';
+import 'package:judge/presentation/routes/export.dart';
 
 class EntryScreen extends StatelessWidget {
   const EntryScreen({super.key});
@@ -11,9 +13,14 @@ class EntryScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text("Entry Screen"),
         actions: [
-          IconButton(onPressed: (){
-            context.read<AuthenticationBloc>().add(SignOutEvent());
-          }, icon: Icon(Icons.logout))
+          IconButton(
+            onPressed: () {
+              context
+                ..read<AuthenticationBloc>().add(SignOutEvent())
+                ..replaceRoute(SignInRoute());
+            },
+            icon: Icon(Icons.logout),
+          ),
         ],
       ),
     );

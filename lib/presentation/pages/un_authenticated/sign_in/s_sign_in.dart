@@ -18,13 +18,19 @@ class SignInScreen extends StatelessWidget {
               child: SingleChildScrollView(child: SignInFormFragment()),
             ),
           ),
+
+          Padding(
+            padding: const EdgeInsets.only(
+              left: 16,
+              right: 16,
+              top: 12,
+              bottom: 36,
+            ),
+            child: SubmitButtonWidget(),
+          ),
           Padding(
             padding: const EdgeInsets.only(left: 16, right: 16, top: 36),
             child: NavigateSignUpButtonWidget(),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left: 16, right: 16, top: 12, bottom: 36),
-            child: SubmitButtonWidget(),
           ),
         ],
       ),

@@ -6,6 +6,7 @@ enum AuthErrorCode {
   emailExists('이미 존재하는 이메일입니다'),
   weakPassword('비밀번호가 보안에 취약합니다'),
   userNotFound('존재하지 않는 유저입니다'),
+  userAlreadyExists('이미 존재하는 유저입니다'),
   unKnown('알수없는 인증오류가 발생했습니다');
 
   final String message;

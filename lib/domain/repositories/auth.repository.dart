@@ -10,6 +10,7 @@ abstract interface class AuthRepository {
   Future<Either<AbsError, AppUser?>> signUp({
     required String email,
     required String password,
+    required String username,
   });
 
   Future<Either<AbsError, AppUser?>> signIn({

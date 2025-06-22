@@ -10,16 +10,17 @@ class SignUpFormFragment extends StatefulWidget {
   State<SignUpFormFragment> createState() => _SignUpFormFragmentState();
 }
 
-class _SignUpFormFragmentState extends State<SignUpFormFragment>
-    with DebounceMixin {
+class _SignUpFormFragmentState extends State<SignUpFormFragment> {
   late final TextEditingController _emailController;
   late final TextEditingController _passwordController;
+  late final TextEditingController _usernameController;
 
   @override
   void initState() {
     super.initState();
     _emailController = TextEditingController()..addListener(_handleEmail);
     _passwordController = TextEditingController()..addListener(_handlePassword);
+    _usernameController = TextEditingController()..addListener(_handleUsername);
   }
 
   @override
@@ -30,6 +31,9 @@ class _SignUpFormFragmentState extends State<SignUpFormFragment>
       ..dispose();
     _passwordController
       ..removeListener(_handlePassword)
+      ..dispose();
+    _usernameController
+      ..removeListener(_handleUsername)
       ..dispose();
   }
 
@@ -47,15 +51,28 @@ class _SignUpFormFragmentState extends State<SignUpFormFragment>
     return null;
   }
 
-  _handleEmail() => debounce(() async {
-    context.read<SignUpCubit>().updateData(email: _emailController.text.trim());
-  });
+  String? _validateUsername(String? text) {
+    if (text == null || text.isEmpty) {
+      return "유저명을 입력해주세요";
+    }
+    return null;
+  }
 
-  _handlePassword() => debounce(() async {
+  _handleEmail() {
+    context.read<SignUpCubit>().updateData(email: _emailController.text.trim());
+  }
+
+  _handlePassword() {
     context.read<SignUpCubit>().updateData(
       password: _passwordController.text.trim(),
     );
-  });
+  }
+
+  _handleUsername() {
+    context.read<SignUpCubit>().updateData(
+      username: _usernameController.text.trim(),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -83,7 +100,6 @@ class _SignUpFormFragmentState extends State<SignUpFormFragment>
               ],
             ),
           ),
-
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
             child: Column(
@@ -99,6 +115,25 @@ class _SignUpFormFragmentState extends State<SignUpFormFragment>
                   validator: _validatePassword,
                   controller: _passwordController,
                   obscureText: true,
+                  style: context.textTheme.bodyLarge,
+                ),
+              ],
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Username',
+                  style: context.textTheme.titleMedium?.copyWith(
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                TextFormField(
+                  validator: _validateUsername,
+                  controller: _usernameController,
                   style: context.textTheme.bodyLarge,
                 ),
               ],

@@ -27,9 +27,10 @@ class AuthRepositoryImpl
   Future<Either<AbsError, AppUser?>> signUp({
     required String email,
     required String password,
+    required String username,
   }) async => await wrap<AppAuthUser?, AppUser?>(
     action: () async => await _remoteDataSource.signUp(
-      SignUpRequest(email: email, password: password),
+      SignUpRequest(email: email, password: password, username: username),
     ),
     rightCallback: _authUser2AppUser,
   );

@@ -1,20 +1,19 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:judge/domain/entities/export.dart';
+import 'package:judge/domain/usecases/export.dart';
 import 'router_config.dart';
 
 class AuthGuard extends AutoRouteGuard {
-  final Stream<AppUser?> _userStream;
+  final AuthUseCase _useCase;
 
-  AuthGuard(this._userStream);
+  AuthGuard(this._useCase);
 
   @override
   void onNavigation(NavigationResolver resolver, StackRouter router) {
-    _userStream.listen((user) {
-      if (user != null) {
-        resolver.next(true);
-      } else {
-        router.replace(const SignInRoute());
-      }
-    });
+    final isAuth = _useCase.currentUser != null;
+    if (isAuth) {
+      resolver.next(true);
+    } else {
+      router.replace(SignInRoute());
+    }
   }
 }

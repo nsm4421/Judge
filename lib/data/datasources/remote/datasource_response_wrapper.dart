@@ -33,6 +33,7 @@ mixin class DataSourceResponseWrapperMixIn {
       'email_exists' => AuthErrorCode.emailExists,
       'user_not_found' => AuthErrorCode.userNotFound,
       'weak_password' => AuthErrorCode.weakPassword,
+      'user_already_exists' => AuthErrorCode.userAlreadyExists,
       (_) => AuthErrorCode.unKnown,
     };
   }

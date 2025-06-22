@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:judge/dependency_injection.dart';
 import 'package:judge/presentation/providers/export.dart';
+import 'package:judge/presentation/routes/export.dart';
 import 'package:judge/shared/export.dart';
 import 'package:oktoast/oktoast.dart';
 
@@ -28,6 +29,9 @@ class SignUpPage extends StatelessWidget {
                 message: '',
               );
             });
+          } else if (state.status == Status.success) {
+            showToast('회원가입에 성공하였습니다');
+            context.replaceRoute(EntryRoute());
           }
         },
         child: const SignUpScreen(),

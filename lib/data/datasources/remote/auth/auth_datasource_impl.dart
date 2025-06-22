@@ -38,7 +38,11 @@ class AuthDataSourceImpl
   Future<Either<AbsError, AppAuthUser?>> signUp(SignUpRequest model) async =>
       await wrap<AppAuthUser?>(() async {
         return await _client
-            .signUp(email: model.email, password: model.password)
+            .signUp(
+              email: model.email,
+              password: model.password,
+              data: {'username': model.username},
+            )
             .then((res) => res.user)
             .then(_user2AppAutUser);
       });
@@ -49,6 +53,12 @@ class AuthDataSourceImpl
   });
 
   AppAuthUser? _user2AppAutUser(User? user) {
-    return user == null ? null : AppAuthUser.from(user.toJson());
+    return user == null
+        ? null
+        : AppAuthUser(
+            id: user.id,
+            email: user.email!,
+            username: user.userMetadata!['username'],
+          );
   }
 }

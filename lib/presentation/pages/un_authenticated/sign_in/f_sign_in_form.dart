@@ -10,8 +10,7 @@ class SignInFormFragment extends StatefulWidget {
   State<SignInFormFragment> createState() => _SignInFormFragmentState();
 }
 
-class _SignInFormFragmentState extends State<SignInFormFragment>
-    with DebounceMixin {
+class _SignInFormFragmentState extends State<SignInFormFragment> {
   late final TextEditingController _emailController;
   late final TextEditingController _passwordController;
 
@@ -47,16 +46,15 @@ class _SignInFormFragmentState extends State<SignInFormFragment>
     return null;
   }
 
-
-  _handleEmail() => debounce(() async {
+  _handleEmail() {
     context.read<SignInCubit>().updateData(email: _emailController.text.trim());
-  });
+  }
 
-  _handlePassword() => debounce(() async {
+  _handlePassword() {
     context.read<SignInCubit>().updateData(
       password: _passwordController.text.trim(),
     );
-  });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -76,8 +74,9 @@ class _SignInFormFragmentState extends State<SignInFormFragment>
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                TextFormField(controller: _emailController,
-                validator: _validateEmail,
+                TextFormField(
+                  controller: _emailController,
+                  validator: _validateEmail,
                 ),
               ],
             ),
@@ -95,8 +94,10 @@ class _SignInFormFragmentState extends State<SignInFormFragment>
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                TextFormField(controller: _passwordController,
-                validator: _validatePassword,
+                TextFormField(
+                  controller: _passwordController,
+                  obscureText: true,
+                  validator: _validatePassword,
                 ),
               ],
             ),
