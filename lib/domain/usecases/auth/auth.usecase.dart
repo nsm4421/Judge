@@ -1,13 +1,12 @@
 import 'package:injectable/injectable.dart';
 import 'package:judge/domain/entities/export.dart';
 import 'package:judge/domain/repositories/export.dart';
-import 'package:judge/shared/export.dart';
 import 'scenario/sign_out.usecase.dart';
 import 'scenario/sign_up.usecase.dart';
 import 'scenario/sign_in.usecase.dart';
 
 @lazySingleton
-class AuthUseCase with SingletonLoggerMixIn {
+class AuthUseCase {
   final AuthRepository _repository;
 
   AuthUseCase(this._repository);
@@ -16,9 +15,9 @@ class AuthUseCase with SingletonLoggerMixIn {
 
   AppUser? get currentUser => _repository.currentUser;
 
-  SignUpUseCase get signUp => SignUpUseCase(_repository, logger: logger);
+  SignUpUseCase get signUp => SignUpUseCase(_repository);
 
-  SignInUseCase get signIn => SignInUseCase(_repository, logger: logger);
+  SignInUseCase get signIn => SignInUseCase(_repository);
 
-  SignOutUseCase get signOut => SignOutUseCase(_repository, logger: logger);
+  SignOutUseCase get signOut => SignOutUseCase(_repository);
 }

@@ -5,9 +5,9 @@ abstract interface class AuthDataSource {
 
   AppAuthUser? get currentUser;
 
-  Future<AppAuthUser?> signUp(SignUpRequest model);
+  Future<Either<AbsError, AppAuthUser?>> signUp(SignUpRequest model);
 
-  Future<AppAuthUser?> signIn(SignInRequest model);
+  Future<Either<AbsError, AppAuthUser?>> signIn(SignInRequest model);
 
-  Future<void> signOut();
+  Future<Either<AbsError, void>> signOut();
 }

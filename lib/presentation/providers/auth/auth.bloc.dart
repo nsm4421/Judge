@@ -33,7 +33,7 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState>
       await _useCase.signOut().then(
         (res) => res.fold(
           (l) {
-            logger.e(l.description);
+            logger.e(l);
             emit(
               state
                   .copyWith(status: Status.error, message: l.message)

@@ -55,7 +55,7 @@ class SignInCubit extends Cubit<SignInState> with SingletonLoggerMixIn {
           .then(
             (res) => res.fold(
               (l) {
-                logger.e(l.description);
+                logger.e(l);
                 updateStatus(status: Status.error, message: l.message);
               },
               (r) {

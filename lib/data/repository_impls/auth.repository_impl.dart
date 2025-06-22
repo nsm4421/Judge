@@ -1,12 +1,17 @@
 import 'package:injectable/injectable.dart';
+import 'package:either_dart/either.dart';
 
 import 'package:judge/data/datasources/export.dart';
 import 'package:judge/data/models/export.dart';
 import 'package:judge/domain/entities/export.dart';
 import 'package:judge/domain/repositories/export.dart';
+import 'package:judge/shared/export.dart';
+import 'repository_response_wrapper.dart';
 
 @LazySingleton(as: AuthRepository)
-class AuthRepositoryImpl implements AuthRepository {
+class AuthRepositoryImpl
+    with RepositoryResponseWrapperMixIn
+    implements AuthRepository {
   final AuthDataSource _remoteDataSource;
 
   AuthRepositoryImpl(this._remoteDataSource);
@@ -19,29 +24,30 @@ class AuthRepositoryImpl implements AuthRepository {
   AppUser? get currentUser => _authUser2AppUser(_remoteDataSource.currentUser);
 
   @override
-  Future<AppUser?> signUp({
+  Future<Either<AbsError, AppUser?>> signUp({
     required String email,
     required String password,
-  }) async {
-    return await _remoteDataSource
-        .signUp(SignUpRequest(email: email, password: password))
-        .then(_authUser2AppUser);
-  }
+  }) async => await wrap<AppAuthUser?, AppUser?>(
+    action: () async => await _remoteDataSource.signUp(
+      SignUpRequest(email: email, password: password),
+    ),
+    rightCallback: _authUser2AppUser,
+  );
 
   @override
-  Future<AppUser?> signIn({
+  Future<Either<AbsError, AppUser?>> signIn({
     required String email,
     required String password,
-  }) async {
-    return await _remoteDataSource
-        .signIn(SignInRequest(email: email, password: password))
-        .then(_authUser2AppUser);
-  }
+  }) async => await wrap<AppAuthUser?, AppUser?>(
+    action: () async => await _remoteDataSource.signIn(
+      SignInRequest(email: email, password: password),
+    ),
+    rightCallback: _authUser2AppUser,
+  );
 
   @override
-  Future<void> signOut() async {
-    return await _remoteDataSource.signOut();
-  }
+  Future<Either<AbsError, void>> signOut() async =>
+      await _remoteDataSource.signOut();
 
   AppUser? _authUser2AppUser(AppAuthUser? e) {
     return e == null ? null : AppUser.from(e);
