@@ -8,29 +8,29 @@ import 'package:judge/presentation/providers/export.dart';
 import 'package:judge/shared/export.dart';
 import 'package:oktoast/oktoast.dart';
 
-import 's_sign_up.dart';
+import 's_sign_in.dart';
 
 @RoutePage()
-class SignUpPage extends StatelessWidget {
-  const SignUpPage({super.key});
+class SignInPage extends StatelessWidget {
+  const SignInPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => getIt<SignUpCubit>(),
-      child: BlocListener<SignUpCubit, SignUpState>(
+      create: (context) => getIt<SignInCubit>(),
+      child: BlocListener<SignInCubit, SignInState>(
         listener: (context, state) {
           if (state.status == Status.error) {
             showToast(state.message);
             Timer(1.durationInSec, () {
-              context.read<SignUpCubit>().updateStatus(
+              context.read<SignInCubit>().updateStatus(
                 status: Status.initial,
                 message: '',
               );
             });
           }
         },
-        child: const SignUpScreen(),
+        child: const SignInScreen(),
       ),
     );
   }

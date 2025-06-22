@@ -3,14 +3,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:judge/presentation/providers/export.dart';
 import 'package:judge/shared/export.dart';
 
-class SignUpFormFragment extends StatefulWidget {
-  const SignUpFormFragment({super.key});
+class SignInFormFragment extends StatefulWidget {
+  const SignInFormFragment({super.key});
 
   @override
-  State<SignUpFormFragment> createState() => _SignUpFormFragmentState();
+  State<SignInFormFragment> createState() => _SignInFormFragmentState();
 }
 
-class _SignUpFormFragmentState extends State<SignUpFormFragment>
+class _SignInFormFragmentState extends State<SignInFormFragment>
     with DebounceMixin {
   late final TextEditingController _emailController;
   late final TextEditingController _passwordController;
@@ -47,12 +47,13 @@ class _SignUpFormFragmentState extends State<SignUpFormFragment>
     return null;
   }
 
+
   _handleEmail() => debounce(() async {
-    context.read<SignUpCubit>().updateData(email: _emailController.text.trim());
+    context.read<SignInCubit>().updateData(email: _emailController.text.trim());
   });
 
   _handlePassword() => debounce(() async {
-    context.read<SignUpCubit>().updateData(
+    context.read<SignInCubit>().updateData(
       password: _passwordController.text.trim(),
     );
   });
@@ -60,7 +61,7 @@ class _SignUpFormFragmentState extends State<SignUpFormFragment>
   @override
   Widget build(BuildContext context) {
     return Form(
-      key: context.read<SignUpCubit>().formKey,
+      key: context.read<SignInCubit>().formKey,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -71,18 +72,17 @@ class _SignUpFormFragmentState extends State<SignUpFormFragment>
               children: [
                 Text(
                   'Email',
-                  style: context.textTheme.titleMedium?.copyWith(
+                  style: context.textTheme.titleLarge?.copyWith(
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                TextFormField(
-                  validator: _validateEmail,
-                  controller: _emailController,
-                  style: context.textTheme.bodyLarge,
+                TextFormField(controller: _emailController,
+                validator: _validateEmail,
                 ),
               ],
             ),
           ),
+          16.height,
 
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
@@ -91,15 +91,12 @@ class _SignUpFormFragmentState extends State<SignUpFormFragment>
               children: [
                 Text(
                   'Password',
-                  style: context.textTheme.titleMedium?.copyWith(
+                  style: context.textTheme.titleLarge?.copyWith(
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                TextFormField(
-                  validator: _validatePassword,
-                  controller: _passwordController,
-                  obscureText: true,
-                  style: context.textTheme.bodyLarge,
+                TextFormField(controller: _passwordController,
+                validator: _validatePassword,
                 ),
               ],
             ),
