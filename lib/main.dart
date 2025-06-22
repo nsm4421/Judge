@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:oktoast/oktoast.dart';
 import 'package:judge/presentation/routes/export.dart';
 import 'package:judge/presentation/providers/export.dart';
 import 'package:judge/shared/export.dart';
@@ -25,9 +26,12 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (_) => getIt<AuthenticationBloc>(),
-      child: MaterialApp.router(
-        theme: getIt<DarkThemeData>().themeData,
-        routerConfig: getIt<AppRouter>().config(),
+      child: OKToast(
+        position: ToastPosition.bottom,
+        child: MaterialApp.router(
+          theme: getIt<DarkThemeData>().themeData,
+          routerConfig: getIt<AppRouter>().config(),
+        ),
       ),
     );
   }

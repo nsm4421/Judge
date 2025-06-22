@@ -23,6 +23,7 @@ dependencies:
   logger: ^2.5.0
   either_dart: ^1.0.0
   flutter_bloc: ^9.1.1
+  oktoast: ^3.4.0
 
 dev_dependencies:
   flutter_test:
