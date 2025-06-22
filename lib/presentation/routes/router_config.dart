@@ -3,6 +3,8 @@ import 'package:injectable/injectable.dart';
 import 'package:judge/domain/usecases/export.dart';
 import 'package:judge/presentation/pages/export.dart';
 
+import 'auth_guard.dart';
+
 part 'router_config.gr.dart';
 
 @lazySingleton
@@ -17,7 +19,12 @@ class AppRouter extends RootStackRouter {
 
   @override
   List<AutoRoute> get routes => [
-    AutoRoute(page: SplashRoute.page),
-    AutoRoute(page: SignUpRoute.page, initial: true),
+    AutoRoute(page: SplashRoute.page, initial: true),
+    AutoRoute(page: SignInRoute.page),
+    AutoRoute(page: SignUpRoute.page),
+    AutoRoute(page: EntryRoute.page, guards: [_authGuard]),
   ];
+
+  @lazySingleton
+  AuthGuard get _authGuard => AuthGuard(_useCase.userStream);
 }
