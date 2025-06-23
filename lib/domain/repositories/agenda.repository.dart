@@ -3,9 +3,12 @@ import 'package:judge/domain/entities/export.dart';
 import 'package:judge/shared/export.dart';
 
 abstract interface class AgendaRepository {
-  Future<Either<AbsError, List<Agenda>>> fetchAll();
+  Future<Either<AbsError, Pageable<Agenda>>> fetchWithPage({
+    String? beforeAt,
+    int limit = 20,
+  });
 
-  Future<Either<AbsError, Agenda>> fetchById(String id);
+  Future<Either<AbsError, Agenda>> getById(String id);
 
   Future<Either<AbsError, String>> create({
     required String title,

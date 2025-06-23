@@ -1,7 +1,8 @@
 import 'package:injectable/injectable.dart';
 import 'package:judge/domain/repositories/export.dart';
 import 'scenario/create_agenda.usecase.dart';
-import 'scenario/fetch_agenda_by_id.usecase.dart';
+import 'scenario/fetch_agendas_with_page.usecase.dart';
+import 'scenario/get_agenda_by_id.usecase.dart';
 import 'scenario/update_agenda.usecase.dart';
 import 'scenario/delete_agenda.usecase.dart';
 
@@ -17,5 +18,10 @@ class AgendaUseCase {
 
   DeleteAgendaUseCase get delete => DeleteAgendaUseCase(_repository);
 
-  FetchAgendaByIdUseCase get findById => FetchAgendaByIdUseCase(_repository);
+  GetAgendaByIdUseCase get findById => GetAgendaByIdUseCase(_repository);
+
+  FetchAgendasOnMountUseCase get onMount =>
+      FetchAgendasOnMountUseCase(_repository);
+
+  FetchMoreAgendasUseCase get fetchMore => FetchMoreAgendasUseCase(_repository);
 }

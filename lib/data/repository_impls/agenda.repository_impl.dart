@@ -16,6 +16,28 @@ class AgendaRepositoryImpl
   AgendaRepositoryImpl(this._remoteDataSource);
 
   @override
+  Future<Either<AbsError, Pageable<Agenda>>> fetchWithPage({
+    String? beforeAt,
+    int limit = 20,
+  }) async => await wrap<Iterable<FetchAgendaWithUser>, Pageable<Agenda>>(
+    action: beforeAt == null
+        ? () async => await _remoteDataSource.fetchWithoutCursor(limit: limit)
+        : () async => await _remoteDataSource.fetchWithCursor(
+            beforeAt: beforeAt,
+            limit: limit,
+          ),
+    rightCallback: (e) =>
+        Pageable.from(data: e.map(Agenda.from).toList(), limit: limit),
+  );
+
+  @override
+  Future<Either<AbsError, Agenda>> getById(String id) async =>
+      await wrap<FetchAgendaWithUser, Agenda>(
+        action: () async => await _remoteDataSource.fetchById(id),
+        rightCallback: Agenda.from,
+      );
+
+  @override
   Future<Either<AbsError, String>> create({
     required String title,
     required List<String> choices,
@@ -25,20 +47,6 @@ class AgendaRepositoryImpl
     ),
     rightCallback: (e) => e.id,
   );
-
-  @override
-  Future<Either<AbsError, List<Agenda>>> fetchAll() async =>
-      await wrap<Iterable<FetchAgendaWithUser>, List<Agenda>>(
-        action: () async => await _remoteDataSource.fetchAll(),
-        rightCallback: (e) => e.map(Agenda.from).toList(),
-      );
-
-  @override
-  Future<Either<AbsError, Agenda>> fetchById(String id) async =>
-      await wrap<FetchAgendaWithUser, Agenda>(
-        action: () async => await _remoteDataSource.fetchById(id),
-        rightCallback: Agenda.from,
-      );
 
   @override
   Future<Either<AbsError, String>> update({

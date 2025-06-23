@@ -14,6 +14,43 @@ class AgendaDataSourceImpl
 
   AgendaDataSourceImpl(this._queryBuilder);
 
+  String get _selectQueryTemplate => "*, creator:app_users(*)";
+
+  @override
+  Future<Either<AbsError, Iterable<FetchAgendaWithUser>>> fetchWithoutCursor({
+    int limit = 20,
+  }) async => await wrap<Iterable<FetchAgendaWithUser>>(() async {
+    return await _queryBuilder
+        .select(_selectQueryTemplate)
+        .limit(limit)
+        .order('created_at', ascending: false)
+        .then((res) => res.map(FetchAgendaWithUser.fromJson));
+  });
+
+  @override
+  Future<Either<AbsError, Iterable<FetchAgendaWithUser>>> fetchWithCursor({
+    required String beforeAt,
+    int limit = 20,
+  }) async => await wrap<Iterable<FetchAgendaWithUser>>(() async {
+    return await _queryBuilder
+        .select(_selectQueryTemplate)
+        // 작성시간(created_at)이 before_at이전엔 데이터 조회
+        .lt('created_at', beforeAt)
+        .order('created_at', ascending: false)
+        .limit(limit)
+        .then((res) => res.map(FetchAgendaWithUser.fromJson));
+  });
+
+  @override
+  Future<Either<AbsError, FetchAgendaWithUser>> fetchById(String id) async =>
+      await wrap<FetchAgendaWithUser>(() async {
+        return await _queryBuilder
+            .select(_selectQueryTemplate)
+            .eq("id", id)
+            .single()
+            .then(FetchAgendaWithUser.fromJson);
+      });
+
   @override
   Future<Either<AbsError, FetchAgenda>> create(CreateAgenda model) async =>
       await wrap<FetchAgenda>(() async {
@@ -22,24 +59,6 @@ class AgendaDataSourceImpl
             .select()
             .single()
             .then(FetchAgenda.fromJson);
-      });
-
-  @override
-  Future<Either<AbsError, Iterable<FetchAgendaWithUser>>> fetchAll() async =>
-      await wrap<Iterable<FetchAgendaWithUser>>(() async {
-        return await _queryBuilder.select("*, created_by:app_users(*)").then(
-          (res) => res.map(FetchAgendaWithUser.fromJson),
-        );
-      });
-
-  @override
-  Future<Either<AbsError, FetchAgendaWithUser>> fetchById(String id) async =>
-      await wrap<FetchAgendaWithUser>(() async {
-        return await _queryBuilder
-            .select("*, created_by:app_users(*)")
-            .eq("id", id)
-            .single()
-            .then(FetchAgendaWithUser.fromJson);
       });
 
   @override

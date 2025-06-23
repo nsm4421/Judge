@@ -1,7 +1,14 @@
 part of 'agenda_datasource_impl.dart';
 
 abstract interface class AgendaDataSource {
-  Future<Either<AbsError, Iterable<FetchAgendaWithUser>>> fetchAll();
+  Future<Either<AbsError, Iterable<FetchAgendaWithUser>>> fetchWithoutCursor({
+    int limit = 20,
+  });
+
+  Future<Either<AbsError, Iterable<FetchAgendaWithUser>>> fetchWithCursor({
+    required String beforeAt,
+    int limit = 20,
+  });
 
   Future<Either<AbsError, FetchAgendaWithUser>> fetchById(String id);
 

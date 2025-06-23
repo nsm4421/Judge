@@ -32,8 +32,9 @@ class FetchAgendaWithUser with _$FetchAgendaWithUser {
   final String title;
   final List<String> choices;
   final List<int> counts;
-  @JsonKey(name: 'created_by')
+  @JsonKey(name: 'creator')
   final AppAuthUser createdBy;
+  @JsonKey(name: 'created_at')
   final String? createdAt;
 
   FetchAgendaWithUser({
