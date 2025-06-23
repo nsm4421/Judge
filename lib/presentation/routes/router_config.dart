@@ -1,6 +1,8 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:judge/domain/usecases/export.dart';
+import 'package:judge/domain/entities/export.dart';
 import 'package:judge/presentation/pages/export.dart';
 import 'package:judge/shared/export.dart';
 
@@ -29,9 +31,15 @@ class AppRouter extends RootStackRouter {
       duration: 300.durationInMillis,
     ),
     // authenticated
-    AutoRoute(page: EntryRoute.page, guards: [_authGuard]),
+    AutoRoute(page: DisplayAgendasRoute.page, guards: [_authGuard]),
     CustomRoute(
       page: CreateAgendaRoute.page,
+      transitionsBuilder: TransitionsBuilders.slideRight,
+      duration: 300.durationInMillis,
+      guards: [_authGuard],
+    ),
+    CustomRoute(
+      page: AgendaDetailRoute.page,
       transitionsBuilder: TransitionsBuilders.slideRight,
       duration: 300.durationInMillis,
       guards: [_authGuard],

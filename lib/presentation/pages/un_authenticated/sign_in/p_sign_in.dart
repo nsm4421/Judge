@@ -31,7 +31,7 @@ class SignInPage extends StatelessWidget {
             });
           } else if (state.status == Status.success) {
             showToast('로그인에 성공하였습니다');
-            context.replaceRoute(EntryRoute());
+            context.replaceRoute(DisplayAgendasRoute());
           }
         },
         child: const SignInScreen(),

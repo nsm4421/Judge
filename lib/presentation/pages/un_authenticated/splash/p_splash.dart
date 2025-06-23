@@ -28,7 +28,7 @@ class _SplashPageState extends State<SplashPage> {
         .userStream
         .listen((data) {
           Timer(2.durationInSec, () {
-            context.router.replace(data == null ? SignInRoute() : EntryRoute());
+            context.router.replace(data == null ? SignInRoute() : DisplayAgendasRoute());
           });
         });
   }

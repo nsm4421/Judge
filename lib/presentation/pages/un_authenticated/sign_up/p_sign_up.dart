@@ -31,7 +31,7 @@ class SignUpPage extends StatelessWidget {
             });
           } else if (state.status == Status.success) {
             showToast('회원가입에 성공하였습니다');
-            context.replaceRoute(EntryRoute());
+            context.replaceRoute(DisplayAgendasRoute());
           }
         },
         child: const SignUpScreen(),
