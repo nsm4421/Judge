@@ -16,6 +16,11 @@ CREATE TABLE public.app_users (
 ```sql
 alter table app_users enable row level security;
 
+CREATE POLICY "allow select all on user" 
+ON public.app_users 
+FOR SELECT 
+TO authenticated USING (true);
+
 create policy "user can only insert own account" on app_users for insert
 with check (auth.uid () = id);
 

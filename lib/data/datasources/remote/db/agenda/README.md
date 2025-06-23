@@ -10,7 +10,7 @@ create table public.agendas (
   counts      integer[]       not null default array[]::integer[],    -- 정수 배열
   created_at  timestamptz     not null default now(),                -- 생성 시각
   created_by  uuid            not null default auth.uid()
-    references auth.users(id) on delete cascade                      -- 만든 사용자(FK)
+    references public.app_users(id) on delete cascade                      -- 만든 사용자(FK)
 );
 ```
 
