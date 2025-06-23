@@ -9,5 +9,5 @@ extension BuildContextExtension on BuildContext {
 
   double get height => MediaQuery.of(this).size.height;
 
-  double get bottomViePadding => MediaQuery.of(this).viewPadding.bottom;
+  double get bottomViewPadding => MediaQuery.of(this).viewInsets.bottom;
 }

@@ -20,6 +20,7 @@ class AppRouter extends RootStackRouter {
 
   @override
   List<AutoRoute> get routes => [
+    // un authenticated
     AutoRoute(page: SplashRoute.page, initial: true),
     AutoRoute(page: SignInRoute.page),
     CustomRoute(
@@ -27,7 +28,14 @@ class AppRouter extends RootStackRouter {
       transitionsBuilder: TransitionsBuilders.slideRight,
       duration: 300.durationInMillis,
     ),
+    // authenticated
     AutoRoute(page: EntryRoute.page, guards: [_authGuard]),
+    CustomRoute(
+      page: CreateAgendaRoute.page,
+      transitionsBuilder: TransitionsBuilders.slideRight,
+      duration: 300.durationInMillis,
+      guards: [_authGuard],
+    ),
   ];
 
   @lazySingleton

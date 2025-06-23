@@ -4,6 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:judge/presentation/providers/export.dart';
 import 'package:judge/presentation/routes/export.dart';
 
+import 'f_display_agendas.dart';
+
 class EntryScreen extends StatelessWidget {
   const EntryScreen({super.key});
 
@@ -11,8 +13,13 @@ class EntryScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Entry Screen"),
         actions: [
+          IconButton(
+            onPressed: () {
+              context.pushRoute(CreateAgendaRoute());
+            },
+            icon: Icon(Icons.add_box_outlined),
+          ),
           IconButton(
             onPressed: () {
               context
@@ -23,6 +30,7 @@ class EntryScreen extends StatelessWidget {
           ),
         ],
       ),
+      body: DisplayAgendasFragment(),
     );
   }
 }
