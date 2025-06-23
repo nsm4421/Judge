@@ -25,21 +25,21 @@ class AgendaDataSourceImpl
       });
 
   @override
-  Future<Either<AbsError, Iterable<FetchAgenda>>> fetchAll() async =>
-      await wrap<Iterable<FetchAgenda>>(() async {
-        return await _queryBuilder.select().then(
-          (res) => res.map(FetchAgenda.fromJson),
+  Future<Either<AbsError, Iterable<FetchAgendaWithUser>>> fetchAll() async =>
+      await wrap<Iterable<FetchAgendaWithUser>>(() async {
+        return await _queryBuilder.select("*, created_by:app_users(*)").then(
+          (res) => res.map(FetchAgendaWithUser.fromJson),
         );
       });
 
   @override
-  Future<Either<AbsError, FetchAgenda>> fetchById(String id) async =>
-      await wrap<FetchAgenda>(() async {
+  Future<Either<AbsError, FetchAgendaWithUser>> fetchById(String id) async =>
+      await wrap<FetchAgendaWithUser>(() async {
         return await _queryBuilder
-            .select()
+            .select("*, created_by:app_users(*)")
             .eq("id", id)
             .single()
-            .then(FetchAgenda.fromJson);
+            .then(FetchAgendaWithUser.fromJson);
       });
 
   @override

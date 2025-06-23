@@ -1,9 +1,9 @@
 part of 'agenda_datasource_impl.dart';
 
 abstract interface class AgendaDataSource {
-  Future<Either<AbsError, Iterable<FetchAgenda>>> fetchAll();
+  Future<Either<AbsError, Iterable<FetchAgendaWithUser>>> fetchAll();
 
-  Future<Either<AbsError, FetchAgenda>> fetchById(String id);
+  Future<Either<AbsError, FetchAgendaWithUser>> fetchById(String id);
 
   Future<Either<AbsError, FetchAgenda>> create(CreateAgenda model);
 

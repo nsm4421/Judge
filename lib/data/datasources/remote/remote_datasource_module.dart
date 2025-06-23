@@ -14,6 +14,6 @@ abstract class RemoteDataSource{
 
   @lazySingleton
   AgendaDataSource get agenda => AgendaDataSourceImpl(
-    _supabaseClient.rest.from("agenda")
+    _supabaseClient.rest.from("agendas")
   );
 }
