@@ -14,9 +14,9 @@ class ChoiceListFragment extends StatelessWidget {
       builder: (context, state) {
         return ListView.builder(
           shrinkWrap: true,
-          itemCount: state.choices.length,
+          itemCount: state.options.length,
           itemBuilder: (context, index) {
-            final choice = state.choices[index];
+            final choice = state.options[index];
             return Padding(
               padding: EdgeInsets.symmetric(vertical: 6),
               child: GestureDetector(
@@ -31,7 +31,7 @@ class ChoiceListFragment extends StatelessWidget {
                         ),
                         child: ChoiceModalFragment(
                           initValue: choice,
-                          choices: state.choices,
+                          options: state.options,
                         ),
                       );
                     },
@@ -57,7 +57,7 @@ class ChoiceListFragment extends StatelessWidget {
                           softWrap: true,
                         ),
                         Spacer(),
-                        if (state.choices.length > 1)
+                        if (state.options.length > 1)
                           IconButton(
                             onPressed: () {
                               context.read<CreateAgendaCubit>().removeChoice(

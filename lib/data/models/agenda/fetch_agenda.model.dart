@@ -11,13 +11,13 @@ part 'fetch_agenda.model.g.dart';
 class FetchAgenda with _$FetchAgenda {
   final String id;
   final String title;
-  final List<String> choices;
+  final List<String> options;
   final List<int> counts;
 
   FetchAgenda({
     required this.id,
     required this.title,
-    required this.choices,
+    required this.options,
     required this.counts,
   });
 
@@ -30,7 +30,7 @@ class FetchAgenda with _$FetchAgenda {
 class FetchAgendaWithUser with _$FetchAgendaWithUser {
   final String id;
   final String title;
-  final List<String> choices;
+  final List<String> options;
   final List<int> counts;
   @JsonKey(name: 'creator')
   final AppAuthUser createdBy;
@@ -40,7 +40,7 @@ class FetchAgendaWithUser with _$FetchAgendaWithUser {
   FetchAgendaWithUser({
     required this.id,
     required this.title,
-    required this.choices,
+    required this.options,
     required this.counts,
     required this.createdBy,
     this.createdAt,

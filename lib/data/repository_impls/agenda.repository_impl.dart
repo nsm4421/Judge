@@ -40,10 +40,10 @@ class AgendaRepositoryImpl
   @override
   Future<Either<AbsError, String>> create({
     required String title,
-    required List<String> choices,
+    required List<String> options,
   }) async => await wrap<FetchAgenda, String>(
     action: () async => await _remoteDataSource.create(
-      CreateAgenda(title: title, choices: choices),
+      CreateAgenda(title: title, options: options),
     ),
     rightCallback: (e) => e.id,
   );
@@ -52,11 +52,11 @@ class AgendaRepositoryImpl
   Future<Either<AbsError, String>> update({
     required String id,
     required String title,
-    required List<String> choices,
+    required List<String> options,
   }) async => await wrap<FetchAgenda, String>(
     action: () async => await _remoteDataSource.update(
       id: id,
-      model: UpdateAgenda(title: title, choices: choices),
+      model: UpdateAgenda(title: title, options: options),
     ),
     rightCallback: (e) => e.id,
   );

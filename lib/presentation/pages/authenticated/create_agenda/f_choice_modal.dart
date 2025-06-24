@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:judge/shared/export.dart';
 
 class ChoiceModalFragment extends StatefulWidget {
-  const ChoiceModalFragment({super.key, this.initValue, required this.choices});
+  const ChoiceModalFragment({super.key, this.initValue, required this.options});
 
   final String? initValue;
-  final List<String> choices;
+  final List<String> options;
 
   @override
   State<ChoiceModalFragment> createState() => _ChoiceModalFragmentState();
@@ -34,7 +34,7 @@ class _ChoiceModalFragmentState extends State<ChoiceModalFragment> {
       return '텍스트를 입력해주세요';
     } else if (text == widget.initValue) {
       return '기존과 동일한 텍스트를 입력하였습니다';
-    } else if (widget.choices.contains(text)) {
+    } else if (widget.options.contains(text)) {
       return '중복된 텍스트입니다';
     }
     return null;

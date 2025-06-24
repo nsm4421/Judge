@@ -8,11 +8,11 @@ part 'create_agenda.model.g.dart';
 @JsonSerializable()
 class CreateAgenda with _$CreateAgenda {
   final String title;
-  final List<String> choices;
+  final List<String> options;
   late final List<int> counts;
 
-  CreateAgenda({required this.title, required this.choices}) {
-    this.counts = choices.map((_) => 0).toList();
+  CreateAgenda({required this.title, required this.options}) {
+    this.counts = options.map((_) => 0).toList();
   }
 
   Map<String, Object?> toJson() => _$CreateAgendaToJson(this);

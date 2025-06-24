@@ -12,13 +12,13 @@ abstract interface class AgendaRepository {
 
   Future<Either<AbsError, String>> create({
     required String title,
-    required List<String> choices,
+    required List<String> options,
   });
 
   Future<Either<AbsError, String>> update({
     required String id,
     required String title,
-    required List<String> choices,
+    required List<String> options,
   });
 
   Future<Either<AbsError, String>> delete(String id);

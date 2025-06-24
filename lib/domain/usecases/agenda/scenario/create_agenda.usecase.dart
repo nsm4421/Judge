@@ -13,7 +13,7 @@ class CreateAgendaUseCase {
 
   Future<Either<AbsError, String>> call({
     required String title,
-    required List<String> choices,
+    required List<String> options,
   }) async {
     String? savedId;
     final tasks = ListQueue<Future<Either<AbsError, void>> Function()>();
@@ -25,8 +25,8 @@ class CreateAgendaUseCase {
             : Right(null);
       },
       () async {
-        // validate choices
-        for (final c in choices) {
+        // validate options
+        for (final c in options) {
           if (c.isEmpty) {
             return Left(ValidationError('선택지를 입력해주세요'));
           }
@@ -34,7 +34,7 @@ class CreateAgendaUseCase {
         return Right(null);
       },
       () async {
-        final res = await _repository.create(title: title, choices: choices);
+        final res = await _repository.create(title: title, options: options);
         if (res.isRight) {
           savedId = res.right;
         }

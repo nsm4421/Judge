@@ -8,9 +8,9 @@ part 'update_agenda.model.g.dart';
 @JsonSerializable()
 class UpdateAgenda with _$UpdateAgenda {
   final String title;
-  final List<String> choices;
+  final List<String> options;
 
-  UpdateAgenda({required this.title, required this.choices});
+  UpdateAgenda({required this.title, required this.options});
 
   Map<String, Object?> toJson() => _$UpdateAgendaToJson(this);
 

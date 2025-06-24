@@ -34,7 +34,7 @@ class ChoicesHeaderWidget extends StatelessWidget {
                           padding: EdgeInsets.only(
                             bottom: childCtx.bottomViewPadding,
                           ),
-                          child: ChoiceModalFragment(choices: state.choices),
+                          child: ChoiceModalFragment(options: state.options),
                         );
                       },
                     )

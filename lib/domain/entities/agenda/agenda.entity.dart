@@ -10,13 +10,13 @@ part 'agenda.entity.g.dart';
 class Agenda extends BaseEntity {
   @CopyWithField(immutable: true)
   final String title;
-  final List<String> choices;
+  final List<String> options;
   final List<int> counts;
 
   Agenda({
     required super.id,
     required this.title,
-    required this.choices,
+    required this.options,
     required this.counts,
     required super.createdBy,
     super.createdAt,
@@ -26,7 +26,7 @@ class Agenda extends BaseEntity {
     return Agenda(
       id: model.id,
       title: model.title,
-      choices: model.choices,
+      options: model.options,
       counts: model.counts,
       createdBy: AppUser.from(model.createdBy),
       createdAt: model.createdAt == null
@@ -38,8 +38,8 @@ class Agenda extends BaseEntity {
   Agenda get sorted {
     final indices = List<int>.generate(counts.length, (i) => i);
     indices.sort((a, b) => counts[b].compareTo(counts[a]));
-    final sortedOptions = indices.map((i) => choices[i]).toList();
+    final sortedOptions = indices.map((i) => options[i]).toList();
     final sortedCounts = indices.map((i) => counts[i]).toList();
-    return copyWith(choices: sortedOptions, counts: sortedCounts);
+    return copyWith(options: sortedOptions, counts: sortedCounts);
   }
 }
