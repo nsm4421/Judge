@@ -4,6 +4,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import 'auth/auth_datasource_impl.dart';
 import 'db/agenda/agenda_datasource_impl.dart';
 import 'db/choice/choice.datasource_impl.dart';
+import 'db/comment/comment.datasource_impl.dart';
 
 @module
 abstract class RemoteDataSource {
@@ -25,4 +26,8 @@ abstract class RemoteDataSource {
     _supabaseClient.rest.from("choices"),
     callback: _getCurrentUidCallback,
   );
+
+  @lazySingleton
+  CommentDataSource get comments =>
+      CommentDataSourceImpl(_supabaseClient.rest.from("comments"));
 }
