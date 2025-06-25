@@ -29,10 +29,10 @@ class LightThemeData {
     // Secondary Container
     onSecondaryContainer: Color(0xFFFFFFFF),
 
-    tertiary: Color(0xFFFB8C00),
+    tertiary: Color(0xFF2F82C5),
     // Tertiary
     onTertiary: Color(0xFF000000),
-    tertiaryContainer: Color(0xFFEF6C00),
+    tertiaryContainer: Color(0xFF5C95C4),
     // Tertiary Container
     onTertiaryContainer: Color(0xFF000000),
 
@@ -166,9 +166,9 @@ class DarkThemeData extends LightThemeData {
     secondaryContainer: Color(0xFFAD1457),
     onSecondaryContainer: Color(0xFFFFFFFF),
 
-    tertiary: Color(0xFFFB8C00),
+    tertiary: Color(0xFF2B82C2),
     onTertiary: Color(0xFF000000),
-    tertiaryContainer: Color(0xFFEF6C00),
+    tertiaryContainer: Color(0xFF5691BD),
     onTertiaryContainer: Color(0xFF000000),
 
     surface: Color(0xFF1E1E1E),

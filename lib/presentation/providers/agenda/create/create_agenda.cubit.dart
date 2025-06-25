@@ -32,6 +32,10 @@ class CreateAgendaCubit extends Cubit<CreateAgendaState>
     emit(state.copyWith(title: title));
   }
 
+  Future<void> updateDescription(String description) async {
+    emit(state.copyWith(title: description));
+  }
+
   Future<void> addChoice(String text) async {
     if (state.options.length >= _maxChoiceCount) return;
     emit(state.copyWith(options: [...state.options, text]));
