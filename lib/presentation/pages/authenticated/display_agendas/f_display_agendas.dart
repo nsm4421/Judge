@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:judge/domain/entities/export.dart';
 import 'package:judge/presentation/providers/export.dart';
 import 'package:judge/presentation/routes/export.dart';
 import 'package:judge/shared/export.dart';
@@ -11,7 +12,7 @@ class DisplayAgendasFragment extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<DisplayAgendasBloc, DisplayAgendasState>(
+    return BlocBuilder<DisplayAgendasBloc, AbsDisplayState<Agenda>>(
       builder: (context, state) {
         if (!state.isMounted) {
           return Center(child: CircularProgressIndicator());
@@ -32,7 +33,7 @@ class DisplayAgendasFragment extends StatelessWidget {
               return;
             }
             context.read<DisplayAgendasBloc>().add(
-              DisplayAgendasMountedEvent(),
+              DisplayMountedEvent(),
             );
           },
           child: ListView.builder(

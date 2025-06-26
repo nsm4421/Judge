@@ -5,7 +5,6 @@ import 'package:judge/shared/export.dart';
 
 import 'create_comment.state.dart';
 
-
 @injectable
 class CreateParentCommentCubit extends Cubit<CreateCommentState>
     with SingletonLoggerMixIn {

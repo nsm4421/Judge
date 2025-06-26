@@ -1,16 +1,16 @@
-part of 'display_agendas.bloc.dart';
+part of 'abs_display.bloc.dart';
 
 @CopyWith(copyWithNull: true)
-class DisplayAgendasState extends AbsBlocState {
-  final List<Agenda> data;
+class AbsDisplayState<T> extends AbsBlocState {
+  final List<T> data;
   final DateTime? cursor;
   final bool isMounted;
 
-  DisplayAgendasState({
+  AbsDisplayState({
     super.status,
     super.message,
     required this.data,
-    required this.cursor,
+    this.cursor,
     this.isMounted = false,
   });
 

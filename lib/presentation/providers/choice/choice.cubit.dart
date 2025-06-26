@@ -5,7 +5,7 @@ import 'package:judge/domain/entities/export.dart';
 import 'package:judge/domain/usecases/export.dart';
 import 'package:judge/shared/export.dart';
 
-import '../../abs/abs_bloc_state.dart';
+import '../abs/abs_bloc_state.dart';
 
 part 'choice.state.dart';
 
