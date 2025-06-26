@@ -35,23 +35,31 @@ class CommentDataSourceImpl
       });
 
   @override
-  Future<Either<AbsError, Iterable<FetchCommentWithUser>>>
-  fetchCommentByAgendaId({
+  Future<Either<AbsError, Iterable<FetchCommentWithUser>>> fetchParentComments({
     required String agendaId,
-    String? parentId,
-    String? beforeAt,
+    required String beforeAt,
     int limit = 20,
   }) async => await wrap<Iterable<FetchCommentWithUser>>(() async {
-    var builder = _queryBuilder
+    return await _queryBuilder
         .select("*, creator:app_users(*)")
-        .eq("agenda_id", agendaId);
-    if (beforeAt != null) {
-      builder = builder.lt("created_at", beforeAt);
-    }
-    if (parentId != null) {
-      builder = builder.eq("parent_id", parentId);
-    }
-    return await builder
+        .eq("agenda_id", agendaId)
+        .filter("parent_id", "is", null) // 부모댓글만 조회
+        .lt("created_at", beforeAt)
+        .order("created_at", ascending: false)
+        .limit(limit)
+        .then((res) => res.map(FetchCommentWithUser.fromJson));
+  });
+
+  @override
+  Future<Either<AbsError, Iterable<FetchCommentWithUser>>> fetchChildComments({
+    required String parentId,
+    required String beforeAt,
+    int limit = 20,
+  }) async => await wrap<Iterable<FetchCommentWithUser>>(() async {
+    return await _queryBuilder
+        .select("*, creator:app_users(*)")
+        .eq("parent_id", parentId)
+        .lt("created_at", beforeAt)
         .order("created_at", ascending: false)
         .limit(limit)
         .then((res) => res.map(FetchCommentWithUser.fromJson));

@@ -20,8 +20,5 @@ class AgendaUseCase {
 
   GetAgendaByIdUseCase get findById => GetAgendaByIdUseCase(_repository);
 
-  FetchAgendasOnMountUseCase get onMount =>
-      FetchAgendasOnMountUseCase(_repository);
-
-  FetchMoreAgendasUseCase get fetchMore => FetchMoreAgendasUseCase(_repository);
+  FetchAgendasUseCase get fetch => FetchAgendasUseCase(_repository);
 }

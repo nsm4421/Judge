@@ -16,14 +16,29 @@ class CommentRepositoryImpl
   CommentRepositoryImpl(this._remoteDataSource);
 
   @override
-  Future<Either<AbsError, Pageable<Comment>>> fetchCommentByAgendaId({
+  Future<Either<AbsError, Pageable<Comment>>> fetchParentComments({
     required String agendaId,
-    String? parentId,
     required String beforeAt,
     int limit = 20,
   }) async => await wrap<Iterable<FetchCommentWithUser>, Pageable<Comment>>(
-    action: () async => await _remoteDataSource.fetchCommentByAgendaId(
+    action: () async => await _remoteDataSource.fetchParentComments(
       agendaId: agendaId,
+      beforeAt: beforeAt,
+      limit: limit,
+    ),
+    rightCallback: (e) => Pageable.from(
+      data: e.map(Comment.fromModelWithUser).toList(),
+      limit: limit,
+    ),
+  );
+
+  @override
+  Future<Either<AbsError, Pageable<Comment>>> fetchChildComments({
+    required parentId,
+    required String beforeAt,
+    int limit = 20,
+  }) async => await wrap<Iterable<FetchCommentWithUser>, Pageable<Comment>>(
+    action: () async => await _remoteDataSource.fetchChildComments(
       parentId: parentId,
       beforeAt: beforeAt,
       limit: limit,
