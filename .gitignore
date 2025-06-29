@@ -6,6 +6,7 @@
 supabase/
 .env
 .vscode
+.metadata
 
 # Miscellaneous
 *.class
